@@ -1,6 +1,11 @@
 import time
 import requests
 
+class now():
+  pass
+now.version = '0.0.1'
+now.time = time.time()
+
 #important :flushed:
 def button(label, custom_id:str=None):
   """Returns a button dict"""
@@ -35,7 +40,6 @@ async def checkWebhook(ctx, name:str='MyWebhook'):
       for webhook in webhooks:
         if webhook.name == name:
             get = webhook.url
-
             b = True
             return get
       if not b:
@@ -43,26 +47,61 @@ async def checkWebhook(ctx, name:str='MyWebhook'):
           get = b.url
           return get
 
+
+async def checkWebhookToken(ctx, name:str='MyWebhook'):
+      """Checks, and creates webhook"""
+      try:
+        ctx.channel
+      except:
+        raise(AttributeError("Hmm… This is not the ctx (context) from discord.py"))
+      b = False
+      webhooks = await ctx.channel.webhooks()
+      for webhook in webhooks:
+        if webhook.name == name:
+            get = webhook.token
+            b = True
+            return get
+      if not b:
+          b = await ctx.channel.create_webhook(name=name, reason=f'{time.time()}')
+          get = b.token
+          return get
+
 #Sends webhook
 def send(url, content, username='My Webhook', avatar_url='', embeds=None, components=None):
-  """Sends webhook message"""
-  data = {
-    "content": content,
-    "avatar_url": avatar_url,
-    "username": username,
-    "content": content,
-    "embeds": embeds,
-    "components": [
-      {
-        "type":1,
-        "components": components
-      }
-    ]
-  }
-  requests.post(url, json=data)
+  """Sends a webhook message"""
+  if components:
+    data = {
+      "content": content,
+      "avatar_url": avatar_url,
+      "username": username,
+      "content": content,
+      "embeds": embeds,
+      "components": [
+        {
+          "type":1,
+          "components": components
+        }
+      ]
+    }
+  else:
+      data = {
+      "content": content,
+      "avatar_url": avatar_url,
+      "username": username,
+      "content": content,
+      "embeds": embeds
+      
+    }
+  asdf = requests.post(url, json=data)
+  class webhook():
+    pass
+  webhook.status_code = asdf.status_code
+  webhook.json = requests.get(url).text
+  print(asdf.url)
+
 
 def embed(title, description, thumbnail=None, image=None, color:int=0x0995ec, footer=None):
-"""Returns an embed"""
+  """Presents an embed dict"""
   return {
     "title":title,
     "description": description,
