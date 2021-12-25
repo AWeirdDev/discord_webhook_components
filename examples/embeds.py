@@ -9,7 +9,7 @@ async def on_ready():
   print('ready!')
   
 @client.command()
-async def embed(ctx):
+async def embeds(ctx):
   url = await checkWebhook(ctx, 'WEBHOOK_NAME')
   my_embed = embed(title="My New Embed!!11!", description='Embeds are really nice :D', image="Image URL", thumbnail="Thumbnail URL", color=0x0995ec, footer="Footer text :D")
   sec_embed = embed(title="Multiple Embeds! Nice!", description="multiple embeds are cool B)", color=0x0995ec) #The color's default value is 0x0995ec
