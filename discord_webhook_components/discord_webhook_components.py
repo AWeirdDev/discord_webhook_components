@@ -97,7 +97,6 @@ def send(url, content, username='My Webhook', avatar_url='', embeds=None, compon
     pass
   webhook.status_code = asdf.status_code
   webhook.json = requests.get(url).text
-  print(asdf.url)
 
 
 def embed(title, description, thumbnail=None, image=None, color:int=0x0995ec, footer=None):
