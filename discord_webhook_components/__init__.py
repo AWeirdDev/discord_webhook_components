@@ -1,5 +1,5 @@
 from .all import button, URLbutton, checkWebhook, checkWebhookToken, send, embed
-from .exceptions import IncorrectLinkError, WebhookNotFound, NoTokenError
+from .exceptions import IncorrectLinkError, WebhookNotFound, NoTokenError, RateLimitError
 
 """
 discord_webhook_components is a module that displays components in a webhook message.
@@ -20,5 +20,6 @@ __all__ = [
     "embed",
     "IncorrectLinkError",
     "WebhookNotFound",
-    "NoTokenError"
+    "NoTokenError",
+    "RateLimitError"
 ]
