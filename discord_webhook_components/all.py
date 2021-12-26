@@ -1,5 +1,6 @@
 import time
 import requests
+from .exceptions import IncorrectLinkError, WebhookNotFound, NoTokenError, RateLimitError
 
 class now():
   pass
@@ -58,7 +59,10 @@ async def checkWebhookToken(ctx, name:str='MyWebhook'):
       webhooks = await ctx.channel.webhooks()
       for webhook in webhooks:
         if webhook.name == name:
-            get = webhook.token
+            try:
+              get = webhook.token
+            except:
+              raise(NoTokenError(f'The current webhook has no token. Webhook name "{name}" was not created by a bot!'))
             b = True
             return get
       if not b:
@@ -66,9 +70,17 @@ async def checkWebhookToken(ctx, name:str='MyWebhook'):
           get = b.token
           return get
 
-#Sends webhook
 def send(url, content, username='My Webhook', avatar_url='', embeds=None, components=None):
   """Sends a webhook message"""
+  if not url.startswith('https://discord.com/api/webhooks/'):
+    raise(IncorrectLinkError('This link is not a discord webhook link!'))
+  if components:
+    get = requests.get(url)
+    try:
+      get['token']
+    except:
+      raise(NoTokenError('\nThe webhook was not created by a bot.\ndiscord_webhook_components will not work!'))
+
   if components:
     data = {
       "content": content,
@@ -92,11 +104,16 @@ def send(url, content, username='My Webhook', avatar_url='', embeds=None, compon
       "embeds": embeds
       
     }
-  asdf = requests.post(url, json=data)
-  class webhook():
-    pass
-  webhook.status_code = asdf.status_code
-  webhook.json = requests.get(url).text
+  try:
+    res = requests.post(url, json=data)
+    if res.status_code == 429:
+      raise(RateLimitError('Hmm... You are being blocked from the site due to error 429, too many requests.\nhttps://discord.com/developers/docs/topics/rate-limits'))
+  except:
+    if res.status_code == 429:
+      raise(RateLimitError('Hmm... You are being blocked from the site due to error 429, too many requests.\nhttps://discord.com/developers/docs/topics/rate-limits'))
+    else:
+      raise(WebhookNotFound('Webhook was not found or other errors'))
+
 
 
 def embed(title, description, thumbnail=None, image=None, color:int=0x0995ec, footer=None):
