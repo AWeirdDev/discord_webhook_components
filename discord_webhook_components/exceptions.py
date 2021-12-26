@@ -6,3 +6,6 @@ class WebhookNotFound(Exception):
 
 class NoTokenError(Exception):
   pass
+
+class RateLimitError(Exception):
+  pass
