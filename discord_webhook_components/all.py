@@ -2,7 +2,7 @@ import time
 import requests
 from .exceptions import IncorrectLinkError, WebhookNotFound, NoTokenError, RateLimitError
 
-def button(label, style:int, custom_id:str=None):
+def button(label, style:int, emoji=None, custom_id:str=None):
   """Returns a button dict"""
   if not custom_id:
     custom_id = str(time.time())
@@ -10,7 +10,8 @@ def button(label, style:int, custom_id:str=None):
                     "type": 2,
                     "label": label,
                     "style": style, 
-                    "custom_id": custom_id
+                    "custom_id": custom_id,
+                    "emoji": emoji
   }
 
 def URLbutton(label, url:str):
