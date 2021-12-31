@@ -1,7 +1,7 @@
 from distutils.core import setup
 
 setup(
-    name='TowelStuff',
+    name='discord_webhook_components',
     version='0.0.2',
     packages=['discord_webhook_components'],
     license='MIT license',
