@@ -2,20 +2,14 @@ import time
 import requests
 from .exceptions import IncorrectLinkError, WebhookNotFound, NoTokenError, RateLimitError
 
-class now():
-  pass
-now.version = '0.0.1'
-now.time = time.time()
-
-#important :flushed:
-def button(label, custom_id:str=None):
+def button(label, style:int, custom_id:str=None):
   """Returns a button dict"""
   if not custom_id:
     custom_id = str(time.time())
   return {
                     "type": 2,
                     "label": label,
-                    "style": 1, 
+                    "style": style, 
                     "custom_id": custom_id
   }
 
@@ -75,11 +69,7 @@ def send(url, content, username='My Webhook', avatar_url='', embeds=None, compon
   if not url.startswith('https://discord.com/api/webhooks/'):
     raise(IncorrectLinkError('This link is not a discord webhook link!'))
   if components:
-    get = requests.get(url)
-    try:
-      get['token']
-    except:
-      raise(NoTokenError('\nThe webhook was not created by a bot.\ndiscord_webhook_components will not work!'))
+    requests.get(url)
 
   if components:
     data = {
@@ -132,3 +122,13 @@ def embed(title, description, thumbnail=None, image=None, color:int=0x0995ec, fo
         "text": footer
       }
     }
+
+class style:
+  """Colors for the buttons"""
+  blurple = 1
+  gray = 2
+  grey = 2
+  green = 3
+  success = 3
+  red = 4
+  warning = 4
