@@ -1,4 +1,0 @@
-# config.txt
-
-[feed]
-url = https://realpython.com/atom.xml
