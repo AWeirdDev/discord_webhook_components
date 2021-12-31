@@ -10,8 +10,7 @@ def button(label, style:int, emoji=None, custom_id:str=None):
                     "type": 2,
                     "label": label,
                     "style": style, 
-                    "custom_id": custom_id,
-                    "emoji": emoji
+                    "custom_id": custom_id
   }
 
 def URLbutton(label, url:str):
