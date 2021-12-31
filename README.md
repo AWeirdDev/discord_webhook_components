@@ -1,6 +1,4 @@
-# discord_webhook_components
-# Welcome to the discord_webhook_components wiki!
-I know this is useless but ok
+# Setting up `discord_webhook_components`
 
 ## Quick Start
 > 1. Download the files [here](https://github.com/AWeirdScratcher/discord_webhook_components/tree/main/discord_webhook_components), or [download the zipped files](https://github.com/AWeirdScratcher/discord_webhook_components/releases/tag/discord)
