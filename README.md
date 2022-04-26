@@ -1,3 +1,6 @@
+# This repo is outdated, please use [dishook](https://github.com/AWeirdScratcher/dishook)
+
+
 # Setting up `discord_webhook_components`
 
 ## Quick Start
